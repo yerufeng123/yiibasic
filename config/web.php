@@ -44,6 +44,13 @@ $config = [
             'rules' => [
             ],
         ],
+
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            // 'db' => 'mydb',  // 数据库连接的应用组件ID，默认为'db'.
+            'sessionTable' => 'my_session', // session 数据表名，默认为'session'.
+        ],
+        
     ],
     'params' => $params,
 ];
