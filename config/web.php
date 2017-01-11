@@ -20,6 +20,7 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+            'maxSourceLines' => 20,
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -30,10 +31,19 @@ $config = [
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
+            'flushInterval' => 10, 
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    //'levels' => ['error', 'warning','info'],
+                    'categories' => ['app\controllers\*'],
+                    'prefix' => function ($message) {
+                        $user = Yii::$app->has('user', true) ? Yii::$app->get('user') : null;
+                        $userID = $user ? $user->getId(false) : '-';
+                        return "[$userID]";
+                    },
+                    'logVars' => [''],
+                    'exportInterval' => 10,  // default is 1000
                 ],
             ],
         ],
@@ -50,6 +60,7 @@ $config = [
             // 'db' => 'mydb',  // 数据库连接的应用组件ID，默认为'db'.
             'sessionTable' => 'my_session', // session 数据表名，默认为'session'.
         ],
+        
         
     ],
     'params' => $params,
