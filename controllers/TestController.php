@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Test;
 use yii\web\Controller;
 
 /**
@@ -27,5 +28,19 @@ class TestController extends Controller
         var_dump($log);
         $log->export();   
         die;
+    }
+
+    public function actionTestEvent(){
+        $model=new Test();
+        $model->on(Test::EVENT_HELLO,[$this,'event1'],array('wo'=>'bu fu'),false);
+        $model->off(Test::EVENT_HELLO,[$model,'say']);
+        $model->on(Test::EVENT_HELLO,function($event){
+            echo $event->data;
+        },'gun du zi');
+        $model->trigger(Test::EVENT_HELLO);
+    }
+
+    public function event1($event){
+        echo json_encode($event->data);
     }
 }
