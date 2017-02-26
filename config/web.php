@@ -61,7 +61,11 @@ $config = [
             'sessionTable' => 'my_session', // session 数据表名，默认为'session'.
         ],
         'authManager' => [
-            'class' => 'yii\rbac\DbManager',
+            'class' => 'yii\rbac\DbManager',  
+            'itemTable' => 'web_auth_item',  
+            'assignmentTable' => 'web_auth_assignment',  
+            'itemChildTable' => 'web_auth_item_child',  
+            'ruleTable'=>'web_auth_rule' 
         ],
         
         
